@@ -22,9 +22,18 @@ restService.post('/hook', function (req, res) {
 
                 if (requestBody.result.parameters) {
                     if(requestBody.result.parameters.System == 'iSMS'){
-                        speech += 'Rogério';
+                        speech += 'Sugiro falar com Rogério Pereira';
                     }
-               
+                    if(requestBody.result.parameters.System == 'CIP'){
+                        speech += 'Sugiro falar com Flavio Faust';
+                    }
+                    if(requestBody.result.parameters.System == 'TEN'){
+                        speech += 'Sugiro falar com Alex Wzorek';
+                    }
+                    if(requestBody.result.parameters.System == 'BORA'){
+                        speech += 'Sugiro falar com Romanine';
+                    }
+                    
                        
                     speech += ' ';
                 }
