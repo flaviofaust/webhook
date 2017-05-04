@@ -7,9 +7,9 @@ const bodyParser = require('body-parser');
 const restService = express();
 restService.use(bodyParser.json());
 
-restService.post('/hook', function (req, res) {
+restService.post('/webhook', function (req, res) {
 
-    console.log('hook request');
+    console.log('webhook request');
 
     try {
         var speech = 'empty speech';
@@ -20,26 +20,28 @@ restService.post('/hook', function (req, res) {
             if (requestBody.result) {
                 speech = '';
 
-                if (requestBody.result.parameters) {
-                    if(requestBody.result.parameters.System == 'iSMS'){
-                        speech += 'Sugiro falar com Rogério Pereira';
-                    }
-                    if(requestBody.result.parameters.System == 'CIP'){
-                        speech += 'Sugiro falar com Flavio Faust';
-                    }
-                    if(requestBody.result.parameters.System == 'TEN'){
-                        speech += 'Sugiro falar com Alex Wzorek';
-                    }
-                    if(requestBody.result.parameters.System == 'BORA'){
-                        speech += 'Sugiro falar com Romanine';
-                    }
-                    
-                       
-                    speech += ' ';
-                }
+                var requestAction = requestBody.result.action;
+                
+                if(requestAction == ''){
+                
+                    if (requestBody.result.parameters) {
+                        if(requestBody.result.parameters.System == 'iSMS'){
+                            speech += 'Sugiro falar com Rogério Pereira';
+                        }
+                        if(requestBody.result.parameters.System == 'CIP'){
+                            speech += 'Sugiro falar com Flavio Faust';
+                        }
+                        if(requestBody.result.parameters.System == 'TEN'){
+                            speech += 'Sugiro falar com Alex Wzorek';
+                        }
+                        if(requestBody.result.parameters.System == 'BORA'){
+                            speech += 'Sugiro falar com Romanine';
+                        }
 
-                if (requestBody.result.action) {
-                    speech += 'action: ' + requestBody.result.action;
+
+                        speech += ' ';
+                    }
+
                 }
             }
         }
