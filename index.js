@@ -22,7 +22,7 @@ restService.post('/webhook', function (req, res) {
 
                 var requestAction = requestBody.result.action;
                 
-                if(requestAction == ''){
+                if(requestAction == 'responsible'){
                 
                     if (requestBody.result.parameters) {
                         if(requestBody.result.parameters.System == 'iSMS'){
