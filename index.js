@@ -58,7 +58,7 @@ restService.post('/webhook', function (req, res) {
                                 assigened = 'Help Desk';
                         }
                     default:
-                    speech += assigened;
+                    speech += "Ok " + req.body.result.name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu probela é " + assigened;
                 }
             }
         }
@@ -66,9 +66,7 @@ restService.post('/webhook', function (req, res) {
         console.log('result: ', speech);
 
         return res.json({
-            messages: {
-                type: 0,
-                speech: ["teste","teste2"]
+                speech: speech
             }
       });
 
