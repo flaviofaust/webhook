@@ -58,7 +58,7 @@ restService.post('/webhook', function (req, res) {
                                 assigened = 'Help Desk';
                         }
                     default:
-                    speech += "Ok " + req.body.result.parameters.name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened;
+                    speech += "Ok " + req.body.result.parameters.Name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened;
                 }
             }
         }
