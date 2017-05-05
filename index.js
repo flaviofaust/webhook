@@ -67,8 +67,16 @@ restService.post('/webhook', function (req, res) {
 
         return res.json({
              speech: speech,
-             displayText: speech,
-             source: 'apiai-webhook-sample'
+             message: [
+             {
+                type: 0,
+                speech: "teste";
+             },
+             {
+                type: 0,
+                speech: "teste2";
+             }
+             ]
       });
 
     } catch (err) {
