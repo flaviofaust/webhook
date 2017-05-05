@@ -66,7 +66,10 @@ restService.post('/webhook', function (req, res) {
         console.log('result: ', speech);
 
         return res.json({
-             speech: ["teste","teste2",speech]
+            messages: {
+                type: 0,
+                speech: ["teste","teste2"]
+            }
       });
 
     } catch (err) {
