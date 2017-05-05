@@ -12,5 +12,6 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4"
+    "sendgrid": "^4.2.0"
   }
 }
