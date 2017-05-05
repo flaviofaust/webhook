@@ -2,9 +2,8 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
-
 const restService = express();
+
 restService.use(bodyParser.json());
 
 restService.post('/webhook', function (req, res) {
@@ -38,11 +37,11 @@ restService.post('/webhook', function (req, res) {
                                 switch(area){
                                     case 'Vendas':
                                         assigened = 'Monique Oliveira';
-                                        assigenedMail = 'flavio.faust@pmi.com';
+                                        assigenedMail = 'vinicius.gehlen@pmi.com';
                                         break;
                                     case 'Operações':
                                         assigened = 'Rogério Pereira';
-                                        assigenedMail = 'flavio.faust@pmi.com';
+                                        assigenedMail = 'miguel.barateir@pmi.com';
                                         break;
                                     case 'Trade':
                                         assigened = 'Bruno Perico';
@@ -55,8 +54,8 @@ restService.post('/webhook', function (req, res) {
                                 }
                                 break;
                             case 'BORA':
-                                assigened = 'Romanine';
-                                assigenedMail = 'flavio.faust@pmi.com';
+                                assigened = 'Alex Romanine';
+                                assigenedMail = 'miguel.barateiro@pmi.com';
                                 break;
                             case 'TEN':
                             case 'TaskApp':
@@ -79,10 +78,11 @@ restService.post('/webhook', function (req, res) {
                                 break;
                         }
                         speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened;
-                        email = "Você tem uma nova requisição de suporte." +
-                                "\nUsuário: " + name +
-                                "\nÁrea: " + area +
-                                "\nSistema: " + system;
+                        email = "Você tem uma nova requisição de suporte:" +
+                                "/nUsuário: " + name +
+                                "/nÁrea: " + area +
+                                "/nSistema: " + system +
+                                "/n/nEsta requisição foi aberta via #Slack";
 
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
