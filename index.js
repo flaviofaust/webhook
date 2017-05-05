@@ -14,14 +14,16 @@ restService.post('/webhook', function (req, res) {
     try {
         var speech = '';
         var assigened = 'Help Desk';
+        var name = '';
 
         if (req.body) {
 
             if (req.body.result) {
                 assigened = '';
-
+                
                 switch(req.body.result.action){
                     case 'responsible':
+                        name = req.body.result.parameters.Name;
                         switch(req.body.result.parameters.System){
                             case 'iSMS':
                                 switch(req.body.result.parameters.Area){
@@ -56,9 +58,12 @@ restService.post('/webhook', function (req, res) {
                                 break;
                             default:
                                 assigened = 'Help Desk';
+                                break;
                         }
+                        speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened;
+                        break;
                     default:
-                    speech += "Ok " + req.body.result.parameters.Name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened;
+                    break;
                 }
             }
         }
