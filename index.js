@@ -12,36 +12,49 @@ restService.post('/webhook', function (req, res) {
     console.log('webhook request');
 
     try {
-        var speech = 'empty response';
+        var assigened = 'Help Desk';
 
         if (req.body) {
 
             if (req.body.result) {
-                speech = '';
+                assigened = '';
 
                 switch(req.body.result.action){
                     case 'responsible':
                         switch(req.body.result.parameters.System){
                             case 'iSMS':
-                                speech += 'Rogério Pereira';
+                                switch(req.body.result.parameters.Area){
+                                    case 'Vendas':
+                                        assigened = 'Monique Oliveira';
+                                        break;
+                                    case 'Operações':
+                                        assigened = 'Rogério Pereira';
+                                        break;
+                                    case 'Trade':
+                                        assigened = 'Bruno Perico';
+                                        break;
+                                    default:
+                                        assigened = 'Claudia Laurente';
+                                        break;
+                                }
                                 break;
                             case 'BORA':
-                                speech += 'Romanine';
+                                assigened = 'Romanine';
                                 break;
                             case 'TEN':
                             case 'TaskApp':
-                                speech += 'Alex Wzorek';
+                                assigened = 'Alex Wzorek';
                                 break;
                             case 'CATES':
                             case 'URE':
                             case 'FPT':
-                                speech += 'Bruno Perico';
+                                assigened = 'Bruno Perico';
                                 break;
                             case 'CIP':
-                                speech += 'Flavio Faust';
+                                assigened = 'Flavio Faust';
                                 break;
                             default:
-                                speech += 'Help Desk';
+                                assigened = 'Help Desk';
                         }
                     default:
                     speech += ''
@@ -52,9 +65,14 @@ restService.post('/webhook', function (req, res) {
         console.log('result: ', speech);
 
         return res.json({
-            speech: speech,
-            displayText: speech,
-            source: 'apiai-webhook-sample'
+
+            messages: [
+                {
+                    type: 0,
+                    speech: "Hi! Nice to meet you, $name! What is your hobby?"
+                }
+            ]
+
         });
     } catch (err) {
         console.error("Can't process request", err);
