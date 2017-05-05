@@ -69,7 +69,7 @@ restService.post('/webhook', function (req, res) {
             messages: [
                 {
                     type: 0,
-                    speech: "Hi! Nice to meet you, $name! What is your hobby?"
+                    speech: "Hi! Nice to meet you,  What is your hobby?"
                 }
             ]
 
