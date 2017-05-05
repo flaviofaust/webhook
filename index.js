@@ -12,6 +12,7 @@ restService.post('/webhook', function (req, res) {
     console.log('webhook request');
 
     try {
+        var speech = '';
         var assigened = 'Help Desk';
 
         if (req.body) {
@@ -57,7 +58,7 @@ restService.post('/webhook', function (req, res) {
                                 assigened = 'Help Desk';
                         }
                     default:
-                    speech += ''
+                    speech += assigened;
                 }
             }
         }
@@ -65,15 +66,11 @@ restService.post('/webhook', function (req, res) {
         console.log('result: ', speech);
 
         return res.json({
+             speech: speech,
+             displayText: speech,
+             source: 'apiai-webhook-sample'
+      });
 
-            messages: [
-                {
-                    type: 0,
-                    speech: "Hi! Nice to meet you,  What is your hobby?"
-                }
-            ]
-
-        });
     } catch (err) {
         console.error("Can't process request", err);
 
