@@ -77,12 +77,14 @@ restService.post('/webhook', function (req, res) {
                                 assigenedMail = 'flavio.faust@pmi.com';
                                 break;
                         }
-                        speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened + ".";
-                        email = "Você tem uma nova requisição de suporte:" +
-                                "/nUsuário: " + name +
-                                "/nÁrea: " + area +
-                                "/nSistema: " + system +
-                                "/n/nEsta requisição foi aberta via #Slack ;)";
+                        var os = require("os");
+                        speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome." + os.EOL + "O responsável pelo seu problema é " + assigened + ".";
+
+                        email = "Você tem uma nova requisição de suporte:" + os.EOL +
+                                "Usuário: " + name + os.EOL +
+                                "Área: " + area + os.EOL +
+                                "Sistema: " + system + os.EOL + os.EOL +
+                                "Esta requisição foi aberta via #Slack ;)";
 
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
