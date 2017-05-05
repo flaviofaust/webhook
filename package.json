@@ -1,4 +1,4 @@
-{
+
   "name": "apiai-webhook-sample",
   "version": "1.0.0",
   "description": "Webhook sample",
@@ -11,7 +11,7 @@
   "license": "Apache 2.0",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
     "sendgrid": "^4.2.0"
   }
 }
