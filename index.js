@@ -58,7 +58,7 @@ restService.post('/webhook', function (req, res) {
                                 assigened = 'Help Desk';
                         }
                     default:
-                    speech += "Ok ";// + req.body.result.name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu probela é " + assigened;
+                    speech += "Ok " + req.body.result.name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu probela é " + assigened;
                 }
             }
         }
@@ -66,9 +66,10 @@ restService.post('/webhook', function (req, res) {
         console.log('result: ', speech);
 
         return res.json({
-                speech: speech
-            }
-      });
+             speech: speech,
+             displayText: speech,
+             source: 'apiai-webhook-sample'
+         });
 
     } catch (err) {
         console.error("Can't process request", err);
