@@ -12,36 +12,39 @@ restService.post('/webhook', function (req, res) {
     console.log('webhook request');
 
     try {
-        var speech = 'empty speech';
+        var speech = 'empty response';
 
         if (req.body) {
-            var requestBody = req.body;
 
-            if (requestBody.result) {
+            if (req.body.result) {
                 speech = '';
 
-                var requestAction = requestBody.result.action;
-                
-                if(requestAction == 'responsible'){
-                
-                    if (requestBody.result.parameters) {
-                        if(requestBody.result.parameters.System == 'iSMS'){
-                            speech += 'Sugiro falar com Rogério Pereira';
+                switch(req.body.result.action){
+                    case 'responsible':
+                        switch(req.body.result.parameters.System){
+                            case 'iSMS':
+                                speech += 'Rogério Pereira';
+                                break;
+                            case 'BORA':
+                                speech += 'Romanine';
+                                break;
+                            case 'TEN':
+                            case 'TaskApp':
+                                speech += 'Alex Wzorek';
+                                break;
+                            case 'CATES':
+                            case 'URE':
+                            case 'FPT':
+                                speech += 'Bruno Perico';
+                                break;
+                            case 'CIP':
+                                speech += 'Flavio Faust';
+                                break;
+                            default:
+                                speech += 'Help Desk';
                         }
-                        if(requestBody.result.parameters.System == 'CIP'){
-                            speech += 'Sugiro falar com Flavio Faust';
-                        }
-                        if(requestBody.result.parameters.System == 'TEN'){
-                            speech += 'Sugiro falar com Alex Wzorek';
-                        }
-                        if(requestBody.result.parameters.System == 'BORA'){
-                            speech += 'Sugiro falar com Romanine';
-                        }
-
-
-                        speech += ' ';
-                    }
-
+                    default:
+                    speech += ''
                 }
             }
         }
