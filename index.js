@@ -21,6 +21,8 @@ restService.post('/webhook', function (req, res) {
         var system = '';
         var area = '';
         var email = '';
+        
+        var newOrder = false;
 
         if (req.body) {
 
@@ -28,6 +30,11 @@ restService.post('/webhook', function (req, res) {
                 assigened = '';
 
                 switch(req.body.result.action){
+                    case 'Order':
+                        newOrder = true;
+                        
+                        
+                        
                     case 'responsible':
                         name = req.body.result.parameters.Name;
                         system = req.body.result.parameters.System;
