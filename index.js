@@ -63,7 +63,7 @@ restService.post('/webhook', function (req, res) {
 								"\r\n\r\nProdutos: ";
 								
 								for (i = 0; i < products.length; i++) {
-									 email += "\r\n\r\n" + amounts[i] + " x " + products[i];
+									 email += "\r\n\r\n\t" + amounts[i] + " " + products[i];
 									 speech += "\r\n\r\n" + amounts[i] + " unidades de " + products[i];
 								} 
 				
