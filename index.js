@@ -4,6 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const restService = express();
 
+var newOrder = false;
+var customer = '';
+var products = [];
+var amounts = [];
+
 restService.use(bodyParser.json());
 
 restService.post('/webhook', function (req, res) {
@@ -17,12 +22,8 @@ restService.post('/webhook', function (req, res) {
         var speech = '';
         var assigened = 'Help Desk';
         var assigenedMail = 'flavio.faust@pmi.com';
-        var name = '';
-        var system = '';
-        var area = '';
-        var email = '';
-        
-        var newOrder = false;
+        var name = 'Flavio';
+        var email = '';    
 
         if (req.body) {
 
@@ -32,70 +33,39 @@ restService.post('/webhook', function (req, res) {
                 switch(req.body.result.action){
                     case 'Order':
                         newOrder = true;
-                        
-                        
-                        
-                    case 'responsible':
-                        name = req.body.result.parameters.Name;
-                        system = req.body.result.parameters.System;
-                        area = req.body.result.parameters.Area;
-                        switch(system){
-                            case 'iSMS':
-                                switch(area){
-                                    case 'Vendas':
-                                        assigened = 'Monique Oliveira';
-                                        assigenedMail = 'vinicius.gehlen@pmi.com';
-                                        break;
-                                    case 'Operações':
-                                        assigened = 'Rogério Pereira';
-                                        assigenedMail = 'miguel.barateir@pmi.com';
-                                        break;
-                                    case 'Trade':
-                                        assigened = 'Bruno Perico';
-                                        assigenedMail = 'flavio.faust@pmi.com';
-                                        break;
-                                    default:
-                                        assigened = 'Claudia Laurente';
-                                        assigenedMail = 'flavio.faust@pmi.com';
-                                        break;
-                                }
-                                break;
-                            case 'BORA':
-                                assigened = 'Alex Romanine';
-                                assigenedMail = 'miguel.barateiro@pmi.com';
-                                break;
-                            case 'TEN':
-                            case 'TaskApp':
-                                assigened = 'Alex Wzorek';
-                                assigenedMail = 'flavio.faust@pmi.com';
-                                break;
-                            case 'CATES':
-                            case 'URE':
-                            case 'FPT':
-                                assigened = 'Bruno Perico';
-                                assigenedMail = 'flavio.faust@pmi.com';
-                                break;
-                            case 'CIP':
-                                assigened = 'Flavio Faust';
-                                assigenedMail = 'flavio.faust@pmi.com';
-                                break;
-                            default:
-                                assigened = 'Help Desk';
-                                assigenedMail = 'flavio.faust@pmi.com';
-                                break;
+                        break;
+                    case 'Order.Customer':
+                        if(newOrder){
+                            customer = req.body.result.parameters.customer;                            
                         }
+                        break;
+					case 'Order.Customer.Product':
+                        if(newOrder){
+                            products = [];							                           
+                        }
+						products.push(req.body.result.parameters.product); 
+						newOrder = false;
+                        break;
+					case 'Order.Customer.Product.Amount':
+                        if(newOrder){
+                            amounts = [];							                           
+                        }
+						amounts.push(req.body.result.parameters.amount); 
+						newOrder = false;
+                        break;						
+					case 'Order.End':                   
                         var os = require("os");
                         speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened + ".";
 
-                        email = "Você tem uma nova requisição de suporte: " +
-                                "\r\n\r\nUsuário: " + name +
-                                "\r\n\r\nÁrea: " + area +
-                                "\r\n\r\nSistema: " + system +
-                                "\r\n\r\n\r\n\r\nEsta requisição foi aberta via #Slack ;)";
+                        email = "Uma nova ordem de vendas foi criada: " +
+                                "\r\n\r\nCliente: " + customer +
+                                "\r\n\r\nProduto: " + product[0] +
+                                "\r\n\r\nQuantidade: " + amount[0] +
+                                "\r\n\r\n\r\n\r\nEsta ordem foi criada via @Telegram ;)";
 
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
-                        var subject = "Requisição de suporte #Slack";
+                        var subject = "Nova ordem de vendas @Telegram";
                         var content = new helper.Content("text/plain", email);
                         var mail = new helper.Mail(from_email, subject, to_email, content);
 
