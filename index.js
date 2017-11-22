@@ -69,7 +69,7 @@ restService.post('/webhook', function (req, res) {
 				
                                 email += "\r\n\r\n\r\n\r\nEsta ordem foi criada via @Telegram ;)";
 								
-						speech += "\r\n O processo de faturamento será inciado em breve! Até mais e obrigado ;-) ";
+						speech += "\r\n\r\nO processo de faturamento será inciado em breve! Até mais e obrigado ;-) ";
 
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
