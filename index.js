@@ -61,9 +61,10 @@ restService.post('/webhook', function (req, res) {
                                 "\r\n\r\nCliente: " + customer +
 								"\r\n\r\nProdutos: ";
 								
-								for (i = 0; i < products.length; i++) {
-									 email += "\r\n\r\n" + amounts[i] + " x " + products[i];
-								} 
+								//for (i = 0; i < products.length; i++) {
+									 email += "\r\n\r\n" + amounts[0] + " x " + products[0];
+									 email += "\r\n\r\n" + amounts[1] + " x " + products[1];
+								//} 
 				
                                 email += "\r\n\r\n\r\n\r\nEsta ordem foi criada via @Telegram ;)";
 
