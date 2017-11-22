@@ -23,7 +23,8 @@ restService.post('/webhook', function (req, res) {
         var assigened = 'Help Desk';
         var assigenedMail = 'flavio.faust@pmi.com';
         var name = 'Flavio';
-        var email = '';    
+        var email = '';   
+		var i = 0;
 
         if (req.body) {
 
@@ -55,18 +56,20 @@ restService.post('/webhook', function (req, res) {
                         break;						
 					case 'Order.End':                   
                         var os = require("os");
-                        speech += "Ok, estou finalizando a ordem para o cliente " + customer + ". O processo de faturamento será inciado em breve! Até mais e obrigado ;-) ";
+                        speech += "Ok, estou finalizando a ordem para o cliente " + customer + ":"; 
 
                         email = "Uma nova ordem de vendas foi criada: " +
                                 "\r\n\r\nCliente: " + customer +
 								"\r\n\r\nProdutos: ";
 								
-								//for (i = 0; i < products.length; i++) {
-									 email += "\r\n\r\n" + amounts[0] + " x " + products[0];
-									 email += "\r\n\r\n" + amounts[1] + " x " + products[1];
-								//} 
+								for (i = 0; i < products.length; i++) {
+									 email += "\r\n\r\n" + amounts[i] + " x " + products[i];
+									 speech += "\n" + amounts[i] + " unidades de " + products[i];
+								} 
 				
                                 email += "\r\n\r\n\r\n\r\nEsta ordem foi criada via @Telegram ;)";
+								
+						speech += "O processo de faturamento será inciado em breve! Até mais e obrigado ;-) ";
 
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
