@@ -59,7 +59,7 @@ restService.post('/webhook', function (req, res) {
                         speech += "Ok, estou finalizando a ordem para o cliente " + customer + ":"; 
 
                         email = "Uma nova ordem de vendas foi criada: " +
-                                "\r\n\r\nCliente: " + customer +
+                                "\r\n\r\nCliente: " + "\r\n\r\n\t" + customer +
 								"\r\n\r\nProdutos: ";
 								
 								for (i = 0; i < products.length; i++) {
