@@ -55,10 +55,14 @@ restService.post('/webhook', function (req, res) {
                         break;						
 					case 'Order.End':                   
                         var os = require("os");
-                        speech += "Ok ";
+                        speech += "Ok " + name + ", estou abrindo uma requisição de suporte em seu nome. O responsável pelo seu problema é " + assigened + ".";
 
-                        email = "Uma nova ordem de vendas foi criada: " + customer;
- 
+                        email = "Uma nova ordem de vendas foi criada: " +
+                                "\r\n\r\nCliente: " + customer +
+                                "\r\n\r\nProduto: " + products[0] +
+                                "\r\n\r\nQuantidade: " + amounts[0] +
+                                "\r\n\r\n\r\n\r\nEsta ordem foi criada via @Telegram ;)";
+
                         var from_email = new helper.Email("flaviofaust@gmail.com");
                         var to_email = new helper.Email(assigenedMail);
                         var subject = "Nova ordem de vendas @Telegram";
